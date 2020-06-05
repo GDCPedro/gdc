@@ -1,4 +1,6 @@
 import React from "react";
+import service from "../api/index";
+import { Button, message } from "antd";
 
 interface Props {
   name: string;
@@ -13,9 +15,19 @@ export default function Hello({ name, level = 1 }: Props): JSX.Element {
 
   return (
     <div className="hello">
-      <div className="greeting">Hello, {name + getLevel(level)}</div>
+      <Button type="primary" className="greeting" onClick={handleGetHello}>
+        Hello, {name + getLevel(level)}
+      </Button>
     </div>
   );
 }
 
 const getLevel: Function = (level: number) => Array(level + 1).join("!");
+
+const handleGetHello = (): void => {
+  service.getHello().then((res) => {
+    if (res.errcode === 0) {
+      message.success(res.message);
+    }
+  });
+};
