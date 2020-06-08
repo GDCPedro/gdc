@@ -1,6 +1,8 @@
 import React from "react";
+// import { Router, Route, Link } from "react-router";
+
 import "./App.scss";
-import 'antd/dist/antd.css';
+import "antd/dist/antd.css";
 
 import Hello from "./components/Hello";
 
@@ -12,9 +14,7 @@ function App() {
   return (
     <ConfigProvider locale={zhCN}>
       <div className="App">
-        <header className="App-header">
-          <Hello name="guodongchao" level={3} />
-        </header>
+        <header className="App-header"></header>
       </div>
     </ConfigProvider>
   );

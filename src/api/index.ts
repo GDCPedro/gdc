@@ -1,8 +1,15 @@
 import request from "../utils/request"
 
 class Service {
-  getHello(): Promise<any> {
-    return request.get("/hello");
+  getHello(name: string): Promise<any> {
+    return request.get(`/hello?name=${name}`);
+  }
+
+  handleRegister(params: {
+    name: string;
+    pswd: string;
+  }): Promise<any> {
+    return request.post("/register", params)
   }
 }
 

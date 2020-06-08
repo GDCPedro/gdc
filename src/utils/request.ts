@@ -9,13 +9,15 @@ const service = axios.create({
 
 service.interceptors.request.use(
   config => {
-    config.headers["Content-Type"] = "application/x-www-form-urlencoded";
+    message.loading("加载中...", 0, () => { });
+    // config.headers["Content-Type"] = "application/x-www-form-urlencoded";
     return config;
   }
 )
 
 service.interceptors.response.use(
   response => {
+    message.destroy();
     if (response.data.errcode !== 0) {
       // Toast.fail(resp.data.message);
       message.error(response.data.message);

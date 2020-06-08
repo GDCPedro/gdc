@@ -25,9 +25,18 @@ export default function Hello({ name, level = 1 }: Props): JSX.Element {
 const getLevel: Function = (level: number) => Array(level + 1).join("!");
 
 const handleGetHello = (): void => {
-  service.getHello().then((res) => {
-    if (res.errcode === 0) {
-      message.success(res.message);
-    }
-  });
+  // service.getHello("郭东超").then((res) => {
+  //   if (res.errcode === 0) {
+  //     message.success(res.message);
+  //   }
+  // });
+  // ###
+  // 试试注册
+  service
+    .handleRegister({ name: "guodongchao", pswd: "199411" })
+    .then((res) => {
+      if (res.errcode === 0) {
+        message.success(res.message);
+      }
+    });
 };
