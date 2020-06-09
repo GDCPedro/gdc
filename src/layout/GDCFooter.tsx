@@ -1,13 +1,10 @@
-import React, { Component } from "react";
-import "../App.scss";
+import React, { ReactElement } from "react";
 
-interface Props {}
-interface State {}
+interface Props {
+  name?: string;
+}
 
-export default class GDCFooter extends Component<Props, State> {
-  state = {};
-
-  render() {
-    return <div className="gdc-footer">&copy;1994-2020&nbsp;郭东超</div>;
-  }
+export default function GDCFooter(props: Props): ReactElement {
+  console.log(props.name);
+  return <div className="gdc-footer">&copy;1994-2020&nbsp;郭东超</div>;
 }
