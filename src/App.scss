@@ -9,7 +9,7 @@ body,
 .layout {
   .header {
     color: red;
-    background-color: #fff;
+    background-color: gold;
   }
 
   .sub-layout {
@@ -29,6 +29,12 @@ body,
   .footer {
     background-color: lightgrey;
   }
+}
+
+.index {
+  width: 100%;
+  height: 100%;
+  background-color: blanchedalmond;
 }
 
 .gdc-footer {
