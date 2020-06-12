@@ -33,7 +33,7 @@ function App() {
                 <Route path="/index">
                   <Index />
                 </Route>
-                <Route path="/about/:id">
+                <Route path="/about/:id?">
                   <About />
                 </Route>
               </Content>

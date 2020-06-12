@@ -1,21 +1,14 @@
 import React, { Component, ReactElement } from "react";
+import { useRouteMatch } from "react-router-dom";
 
 interface Props {}
 
-function Inner({}: Props): ReactElement {
+export default function About({}: Props): ReactElement {
+  const match = useRouteMatch();
+
   return (
     <div className="about">
-      <div>About</div>
+      <div>About => {(match.params as any).id}</div>
     </div>
   );
-}
-
-export default class About extends Component {
-  componentDidMount() {
-    console.log(this);
-  }
-
-  render() {
-    return <Inner />;
-  }
 }

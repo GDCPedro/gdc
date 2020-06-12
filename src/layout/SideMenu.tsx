@@ -1,18 +1,25 @@
 import React, { ReactElement } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useRouteMatch, useLocation } from "react-router-dom";
 import { Menu } from "antd";
 import {
   AppleOutlined,
   WechatOutlined,
   YoutubeOutlined,
+  StopOutlined,
 } from "@ant-design/icons";
-import { sideBarState } from "../store/index";
-import { useRecoilValue } from "recoil";
+import {
+  sideBarState,
+  defaultItemState,
+  filteredDefaultItem,
+} from "../store/index";
+import { useRecoilValue, useRecoilState } from "recoil";
 interface IMenuItem {
   key: string;
   title: string;
   icon: object;
   to: string;
+  computedTo?: string;
+  params?: object;
 }
 
 interface Props {}
@@ -24,6 +31,7 @@ export default function SideMenu({}: Props): ReactElement {
   // 菜单展开/收起的状态
   const sideBar: boolean = useRecoilValue(sideBarState);
   console.log("--", sideBar);
+
   // 菜单列表
   const state: State = {
     items: [
@@ -39,25 +47,52 @@ export default function SideMenu({}: Props): ReactElement {
         icon: <WechatOutlined />,
         to: "/about",
       },
+      // {
+      //   key: "3",
+      //   title: "App",
+      //   icon: <YoutubeOutlined />,
+      //   to: "/",
+      // },
       {
-        key: "3",
-        title: "App",
-        icon: <YoutubeOutlined />,
-        to: "/",
+        key: "999",
+        title: "传递路由参数",
+        icon: <StopOutlined />,
+        to: "/about",
+        params: {
+          id: 1314,
+        },
+        computedTo: "/about/1314",
       },
     ],
   };
 
+  const location = useLocation();
+
+  const [defaultItem, setDefaultItem] = useRecoilState(defaultItemState);
+  const defaultItemArr = useRecoilValue(filteredDefaultItem);
+
+  /**
+   * 刷新页面时，获取当前应渲染的Item
+   */
+  const handleItemClick: Function = (key: string): void => {
+    sessionStorage.setItem("defaultItem", key);
+    setDefaultItem(key);
+  };
+
   return (
-    <Menu>
+    <Menu defaultSelectedKeys={defaultItemArr as string[]}>
       {state.items.map((item) => (
-        <Menu.Item key={item.key} title={item.title} icon={item.icon}>
-          <NavLink to={item.to}>{item.title}</NavLink>
+        <Menu.Item
+          key={item.key}
+          title={item.title}
+          icon={item.icon}
+          onClick={({ item, key, keyPath, domEvent }) => handleItemClick(key)}
+        >
+          <NavLink to={!!item.computedTo ? item.computedTo : item.to}>
+            {item.title}
+          </NavLink>
         </Menu.Item>
       ))}
-      <Menu.Item key="999" title="路由参数">
-        <NavLink to="/about/1314">路由参数</NavLink>
-      </Menu.Item>
     </Menu>
   );
 }
