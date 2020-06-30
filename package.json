@@ -21,8 +21,9 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
+    "react-tsparticles": "^1.16.1",
     "recoil": "0.0.8",
-    "typescript": "^3.7.5"
+    "typescript": "^3.9.5"
   },
   "scripts": {
     "start": "react-scripts start",

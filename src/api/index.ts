@@ -1,15 +1,16 @@
-import request from "../utils/request"
+import request from "../utils/request";
 
 class Service {
-  getHello(name: string): Promise<any> {
-    return request.get(`/hello?name=${name}`);
+  /**
+   * 登录接口
+   * @param params
+   */
+  login(params: { username: string; password: string }): Promise<any> {
+    return request.post("/auth/login", params);
   }
 
-  handleRegister(params: {
-    name: string;
-    pswd: string;
-  }): Promise<any> {
-    return request.post("/register", params)
+  handleRegister(params: { name: string; pswd: string }): Promise<any> {
+    return request.post("/register", params);
   }
 }
 

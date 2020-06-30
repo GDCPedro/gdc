@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./store/index";
 import Index from "./views/Index";
 import About from "./views/About";
+import Login from "./views/Login";
 
 import { RecoilRoot } from "recoil";
 
@@ -23,25 +24,30 @@ function App() {
     <ConfigProvider locale={zhCN}>
       <Switch>
         <RecoilRoot>
-          <Layout className="layout">
-            <Header className="header">header</Header>
-            <Layout className="sub-layout">
-              <Sider className="left-sidebar">
-                <SideMenu />
-              </Sider>
-              <Content>
-                <Route path="/index">
-                  <Index />
-                </Route>
-                <Route path="/about/:id?">
-                  <About />
-                </Route>
-              </Content>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/gdc">
+            <Layout className="layout">
+              <Header className="header">header</Header>
+              <Layout className="sub-layout">
+                <Sider className="left-sidebar">
+                  <SideMenu />
+                </Sider>
+                <Content>
+                  <Route path="/index">
+                    <Index />
+                  </Route>
+                  <Route path="/about/:id?">
+                    <About />
+                  </Route>
+                </Content>
+              </Layout>
+              <Footer className="footer">
+                <GDCFooter />
+              </Footer>
             </Layout>
-            <Footer className="footer">
-              <GDCFooter />
-            </Footer>
-          </Layout>
+          </Route>
         </RecoilRoot>
       </Switch>
     </ConfigProvider>

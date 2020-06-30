@@ -35,7 +35,7 @@ const handleGetHello = (): void => {
   service
     .handleRegister({ name: "guodongchao", pswd: "199411" })
     .then((res) => {
-      if (res.errcode === 0) {
+      if (res.errorcode === 0) {
         message.success(res.message);
       }
     });
