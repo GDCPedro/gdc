@@ -1,4 +1,10 @@
-import { atom, selector } from "recoil";
+import { atom, selector, RecoilState } from "recoil";
+
+// 设置全局的token
+export const tokenState = atom({
+  key: "tokenState",
+  default: "",
+});
 
 export const sideBarState = atom({
   key: "sideBarState", // unique ID (with respect to other atoms/selectors)
@@ -18,15 +24,17 @@ export const filteredDefaultItem = selector({
       : [get(defaultItemState)],
 });
 
-export const tokenState = atom({
-  key: "tokenState",
-  default: "",
-});
-
+/**
+ * 储存token到storage
+ */
 export const filteredTokenState = selector({
   key: "filteredTokenState",
   get: ({ get }) =>
-    !!localStorage.getItem("tokenState")
-      ? localStorage.getItem("tokenState")
+    !!localStorage.getItem("gdcToken")
+      ? localStorage.getItem("gdcToken")
       : get(tokenState),
+  set: ({ set }, newValue) => {
+    localStorage.setItem("gdcToken", newValue as string);
+    return set(tokenState as RecoilState<unknown>, newValue);
+  },
 });

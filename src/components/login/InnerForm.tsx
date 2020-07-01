@@ -1,10 +1,12 @@
-import React, { Component } from "react";
+import React from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 import { Store } from "antd/lib/form/interface";
 /**
  * 登录接口
  */
 import service from "../../api/index";
+import { useRecoilState } from "recoil";
+import { filteredTokenState } from "../../store/index";
 
 const layout = {
   labelCol: { span: 8 },
@@ -25,13 +27,15 @@ interface State {
   password: string;
 }
 
-class InnerForm extends Component<Props, State> {
-  state: State = {
-    username: "",
-    password: "",
-  };
+export default function InnerForm() {
+  // 获取token
+  const [token, setToken] = useRecoilState(filteredTokenState);
 
-  onFinish(form: Store) {
+  /**
+   * 确认登录
+   * @param form
+   */
+  const onFinish = (form: Store) => {
     service
       .login({
         username: form.username,
@@ -40,67 +44,64 @@ class InnerForm extends Component<Props, State> {
       .then((res) => {
         // 登录成功了,进行处理
         console.log(res);
-        localStorage.setItem("tokenState", res);
+        setToken(res.access_token);
       })
       .catch((err) => {
         console.log(err);
       });
-  }
+  };
 
   /**
    * 注册
    */
-  onRegister() {
+  const onRegister = () => {
+    service.getProfile("李如萍", "199408");
     console.log("onRegister");
-  }
+  };
 
-  render() {
-    return (
-      <div>
-        <Form
-          {...layout}
-          name="basic"
-          initialValues={{ remember: true }}
-          onFinish={this.onFinish}
-          onFinishFailed={onFinishFailed}
+  return (
+    <div>
+      <Form
+        {...layout}
+        name="basic"
+        initialValues={{ remember: true }}
+        onFinish={onFinish}
+        onFinishFailed={onFinishFailed}
+      >
+        <Form.Item
+          label="Username"
+          name="username"
+          rules={[{ required: true, message: "Please enter username!" }]}
         >
-          <Form.Item
-            label="Username"
-            name="username"
-            rules={[{ required: true, message: "Please enter username!" }]}
+          <Input />
+        </Form.Item>
+
+        <Form.Item
+          label="Password"
+          name="password"
+          rules={[{ required: true, message: "Please enter password!" }]}
+        >
+          <Input.Password />
+        </Form.Item>
+
+        <Form.Item {...tailLayout} name="remember" valuePropName="checked">
+          <Checkbox>Remember me</Checkbox>
+        </Form.Item>
+
+        <Form.Item {...tailLayout}>
+          <Button type="primary" htmlType="submit">
+            Login
+          </Button>
+
+          <Button
+            className="register-btn"
+            htmlType="button"
+            onClick={onRegister}
           >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            label="Password"
-            name="password"
-            rules={[{ required: true, message: "Please enter password!" }]}
-          >
-            <Input.Password />
-          </Form.Item>
-
-          <Form.Item {...tailLayout} name="remember" valuePropName="checked">
-            <Checkbox>Remember me</Checkbox>
-          </Form.Item>
-
-          <Form.Item {...tailLayout}>
-            <Button type="primary" htmlType="submit">
-              Login
-            </Button>
-
-            <Button
-              className="register-btn"
-              htmlType="button"
-              onClick={this.onRegister}
-            >
-              Register
-            </Button>
-          </Form.Item>
-        </Form>
-      </div>
-    );
-  }
+            Register
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
+  );
 }
-
-export default InnerForm;

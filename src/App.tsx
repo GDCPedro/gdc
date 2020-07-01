@@ -8,6 +8,7 @@ import Login from "./views/Login";
 import { RecoilRoot } from "recoil";
 
 import "./App.scss";
+import "./assets/variables.scss";
 import "antd/dist/antd.css";
 
 import GDCFooter from "./layout/GDCFooter";

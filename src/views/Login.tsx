@@ -3,6 +3,7 @@ import "../assets/login.scss";
 import { Card } from "antd";
 import InnerForm from "../components/login/InnerForm";
 import Particles from "react-tsparticles";
+import Author from "../components/login/Author";
 
 interface Props {}
 interface State {}
@@ -90,6 +91,7 @@ export default class Login extends Component<Props, State> {
     return (
       <div className="login">
         <Particles width="100%" height="100%" params={particlesConfig} />
+        <Author />
 
         <Card
           className="login-center"
