@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 import { Store } from "antd/lib/form/interface";
 /**
@@ -21,15 +21,16 @@ const onFinishFailed = () => {
   console.log("onFinishFailed");
 };
 
-interface Props {}
-interface State {
-  username: string;
-  password: string;
+interface Props {
+  parent: any;
 }
 
-export default function InnerForm() {
+export default function InnerForm({ parent }: Props) {
   // 获取token
   const [token, setToken] = useRecoilState(filteredTokenState);
+
+  // 区分是注册还是登录
+  const [registerState, setRegisterState] = useState(false);
 
   /**
    * 确认登录
@@ -55,8 +56,11 @@ export default function InnerForm() {
    * 注册
    */
   const onRegister = () => {
-    service.getProfile("李如萍", "199408");
+    // service.getProfile("李如萍", "199408");
     console.log("onRegister");
+    // 改变title
+    parent.setState({ title: "Register" });
+    setRegisterState(true);
   };
 
   return (
@@ -84,7 +88,12 @@ export default function InnerForm() {
           <Input.Password />
         </Form.Item>
 
-        <Form.Item {...tailLayout} name="remember" valuePropName="checked">
+        <Form.Item
+          style={{ display: `${registerState ? "none" : "block"}` }}
+          {...tailLayout}
+          name="remember"
+          valuePropName="checked"
+        >
           <Checkbox>Remember me</Checkbox>
         </Form.Item>
 

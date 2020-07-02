@@ -6,7 +6,9 @@ import Particles from "react-tsparticles";
 import Author from "../components/login/Author";
 
 interface Props {}
-interface State {}
+interface State {
+  title: string;
+}
 
 const particlesConfig = {
   background: {
@@ -85,7 +87,12 @@ const particlesConfig = {
 };
 
 export default class Login extends Component<Props, State> {
-  state = {};
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      title: "User Login",
+    };
+  }
 
   render() {
     return (
@@ -95,11 +102,11 @@ export default class Login extends Component<Props, State> {
 
         <Card
           className="login-center"
-          title="User Login"
+          title={this.state.title}
           hoverable={true}
           type="inner"
         >
-          <InnerForm />
+          <InnerForm parent={this} />
         </Card>
       </div>
     );
