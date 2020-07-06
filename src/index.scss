@@ -1,5 +1,12 @@
 @import "./assets/variables.scss";
 
+// 粒子背景的id
+#tsparticles {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -29,5 +36,39 @@ code {
     width: 40px;
     height: 40px;
     font-size: 40px;
+  }
+}
+
+// 按照/views/文件的名称进行类名区分
+
+// 登录页面的样式
+.login {
+  height: 100%;
+  width: 100%;
+
+  &-center {
+    background-color: pink;
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 400px;
+  }
+}
+
+.register {
+  @extend .login;
+
+  &-center {
+    background-color: pink;
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 400px;
+  }
+
+  &-btn {
+    margin-left: 8px;
   }
 }

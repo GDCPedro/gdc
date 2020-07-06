@@ -12,11 +12,10 @@ const service = axios.create({
   timeout: 30 * 1000,
 });
 
-service.defaults.headers.common["Authorization"] = getToken();
-
 service.interceptors.request.use((config) => {
   message.loading("加载中...", 0, () => {});
   // config.headers["Content-Type"] = "application/x-www-form-urlencoded";
+  config.headers.common["Authorization"] = getToken();
   return config;
 });
 
@@ -24,9 +23,11 @@ service.interceptors.response.use(
   (response) => {
     message.destroy();
     console.log(response);
-    if (response.data.errorcode !== 0) {
+    if (response.data.errorcode !== "000000") {
       // Toast.fail(resp.data.message);
       message.error(response.data.message);
+    } else {
+      message.success(response.data.message);
     }
     return response.data;
   },

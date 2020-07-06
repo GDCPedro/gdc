@@ -35,6 +35,7 @@ export const filteredTokenState = selector({
       : get(tokenState),
   set: ({ set }, newValue) => {
     localStorage.setItem("gdcToken", newValue as string);
+    console.log("filteredTokenState" + newValue);
     return set(tokenState as RecoilState<unknown>, newValue);
   },
 });

@@ -6,11 +6,11 @@ class Service {
    * @param params
    */
   login(params: { username: string; password: string }): Promise<any> {
-    return request.post("/auth/login", params);
+    return request.post("/user/login", params);
   }
 
-  handleRegister(params: { name: string; pswd: string }): Promise<any> {
-    return request.post("/register", params);
+  handleRegister(params: { username: string; password: string }): Promise<any> {
+    return request.post("/user/register", params);
   }
 
   /**
@@ -18,8 +18,8 @@ class Service {
    * @param username
    * @param password
    */
-  getProfile(username: string, password: string): Promise<any> {
-    return request.post("/profile", { username, password });
+  getProfile(username: string): Promise<any> {
+    return request.post("/user/profile", { username });
   }
 }
 

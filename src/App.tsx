@@ -4,11 +4,13 @@ import "./store/index";
 import Index from "./views/Index";
 import About from "./views/About";
 import Login from "./views/Login";
+import Register from "./views/Register";
 
 import { RecoilRoot } from "recoil";
 
 import "./App.scss";
 import "./assets/variables.scss";
+import "./index.scss";
 import "antd/dist/antd.css";
 
 import GDCFooter from "./layout/GDCFooter";
@@ -27,6 +29,9 @@ function App() {
         <RecoilRoot>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/register">
+            <Register />
           </Route>
           <Route path="/gdc">
             <Layout className="layout">

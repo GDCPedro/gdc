@@ -1,5 +1,4 @@
 import React, { ReactElement } from "react";
-import Hello from "../components/Hello";
 import { Button } from "antd";
 import "../App.scss";
 import { useRecoilState } from "recoil";
@@ -13,7 +12,6 @@ export default function Index({}: Props): ReactElement {
 
   return (
     <div className="index">
-      <Hello name="gdc" level={5}></Hello>
       <Button
         onClick={() => {
           setSideBar(!sideBar);
